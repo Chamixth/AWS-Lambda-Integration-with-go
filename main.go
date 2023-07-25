@@ -31,6 +31,10 @@ func main() {
 	app.Put("/updateFunction", apis.HandleUpdateFunction)
 	app.Put("/updateConfing",apis.HandleUpdateConfigFunction)
 	app.Get("listFunction",apis.HandleListFunction)
+	app.Post("/addPermission",apis.HandleAddPermissionFunction)
+	app.Post("/invokeFunction",apis.HandleInvokeFunction)
+	app.Get("/getAlias",apis.HandleGetAliasFunction)
+	app.Get("/listAliases",apis.HandleListAliasesFunction)
 	if err := app.Listen(":8080"); err != nil {
 		log.Fatalf("failed to run server: %v", err)
 	}
