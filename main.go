@@ -1,8 +1,8 @@
 package main
 
 import (
-	"context"
 	"aws-lambda-integration-with-go/apis"
+	"context"
 	"log"
 
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -29,15 +29,26 @@ func main() {
 	app.Get("/getFunction", apis.HandleGetFunction)
 	app.Delete("/deleteFunction", apis.HandleDeleteFunction)
 	app.Put("/updateFunction", apis.HandleUpdateFunction)
-	app.Put("/updateConfing",apis.HandleUpdateConfigFunction)
-	app.Get("listFunction",apis.HandleListFunction)
-	app.Post("/addPermission",apis.HandleAddPermissionFunction)
-	app.Post("/invokeFunction",apis.HandleInvokeFunction)
-	app.Get("/getAlias",apis.HandleGetAliasFunction)
-	app.Get("/listAliases",apis.HandleListAliasesFunction)
-	app.Post("/createAlias",apis.HandleCreateAliasFunction)
-	app.Delete("/deleteAlias",apis.HandleDeleteAlias)
-	app.Put("updateAlias",apis.HandleUpdateAliasFunction)
+	app.Put("/updateConfing", apis.HandleUpdateConfigFunction)
+	app.Get("listFunction", apis.HandleListFunction)
+	app.Post("/addPermission", apis.HandleAddPermissionFunction)
+	app.Post("/invokeFunction", apis.HandleInvokeFunction)
+	app.Get("/getAlias", apis.HandleGetAliasFunction)
+	app.Get("/listAliases", apis.HandleListAliasesFunction)
+	app.Post("/createAlias", apis.HandleCreateAliasFunction)
+	app.Delete("/deleteAlias", apis.HandleDeleteAlias)
+	app.Put("updateAlias", apis.HandleUpdateAliasFunction)
+	app.Get("/getAccountSetting", apis.HandleGetAccountSeetings)
+	app.Post("/createFunctionUrlConfig", apis.HandleCreateFunctionUrlConfig)
+	app.Get("/getFunctionUrlConfig", apis.HandleGetFunctionUrlConfig)
+	app.Delete("deleteFunctionUrlConfig", apis.HandleDeleteFunctionUrlConfig)
+	app.Put("/updateFunctionUrlConfig", apis.HandleUpdateFunctionUrlConfig)
+	app.Get("/listFunctionUrlConfigs", apis.HandleListFunctionUrlConfig)
+	app.Post("/addLayerVersionPermission",apis.HandleAddLayerVersionPermission)
+	app.Get("/getLayerVersion",apis.HandleGetLayerVersion)
+	app.Get("/getLayerVersionByArn",apis.HandleGetLayerVersionByArn)
+	app.Get("/listLayers",apis.HandleListLayers)
+	app.Get("/listLayerVersions",apis.HandleListLayerVersion)
 	if err := app.Listen(":8080"); err != nil {
 		log.Fatalf("failed to run server: %v", err)
 	}
