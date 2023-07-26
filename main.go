@@ -35,6 +35,9 @@ func main() {
 	app.Post("/invokeFunction",apis.HandleInvokeFunction)
 	app.Get("/getAlias",apis.HandleGetAliasFunction)
 	app.Get("/listAliases",apis.HandleListAliasesFunction)
+	app.Post("/createAlias",apis.HandleCreateAliasFunction)
+	app.Delete("/deleteAlias",apis.HandleDeleteAlias)
+	app.Put("updateAlias",apis.HandleUpdateAliasFunction)
 	if err := app.Listen(":8080"); err != nil {
 		log.Fatalf("failed to run server: %v", err)
 	}
