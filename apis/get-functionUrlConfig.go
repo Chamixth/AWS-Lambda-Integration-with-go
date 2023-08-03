@@ -24,7 +24,7 @@ type GetFunctionUrlConfigResponse struct {
 func (wrapper GetFunctionUrlConfig) GetFunctionUrlConfig(functionName, aliasName string) (*GetFunctionUrlConfigResponse, error) {
 	input := &lambda.GetFunctionUrlConfigInput{
 		FunctionName: aws.String(functionName),
-		Qualifier:    aws.String(aliasName),
+	
 	}
 	urlConfig, err := wrapper.LambdaClient.GetFunctionUrlConfig(context.Background(), input)
 	if err != nil {
@@ -32,7 +32,6 @@ func (wrapper GetFunctionUrlConfig) GetFunctionUrlConfig(functionName, aliasName
 	}
 	response := &GetFunctionUrlConfigResponse{
 		FunctionName: functionName,
-		AliasName:      aliasName,
 		URL:          *urlConfig.FunctionUrl,
 	}
 
