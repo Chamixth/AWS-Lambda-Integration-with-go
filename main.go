@@ -86,7 +86,7 @@ func main() {
 	app.Put("/putProvisionedConcurrencyConfig",apis.HandlePutProvisionedConcurrencyConfig)
 	app.Put("/putRuntimeManagementConfig",apis.HandlePutRuntimeManagementConfig)
 	app.Delete("/removeLayerVersionPermission",apis.HandleRemoveLayerVersionPermission)
-	if err := app.Listen(":8080"); err != nil {
+	if err := app.Listen(":8000"); err != nil {
 		log.Fatalf("failed to run server: %v", err)
 	}
 
