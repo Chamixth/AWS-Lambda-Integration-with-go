@@ -69,7 +69,7 @@ func (wrapper FunctionWrapper) CreateFunction(c *fiber.Ctx) error {
 		Role:         iamRoleArn,
 		Handler:      aws.String(req.HandlerName),
 		Publish:      true,
-		Runtime:      types.RuntimeGo1x,
+		Runtime:    types.RuntimeProvidedal2  ,
 	})
 	if err != nil {
 		var resConflict *types.ResourceConflictException
