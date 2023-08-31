@@ -1,10 +1,8 @@
 package apis
 
 import (
-	"bytes"
 	"context"
 	"errors"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -36,7 +34,8 @@ type CreateFunctionRequest struct {
 	FunctionName string `json:"functionName"`
 	HandlerName  string `json:"handlerName"`
 	IAMRoleARN   string `json:"iamRoleArn"`
-	ZipPackage   string `json:"zipPackage"`
+	S3Bucket     string `json:"s3Bucket"`     // Use just the bucket name
+	S3ObjectKey  string `json:"s3ObjectKey"`  // Add this field for the object key
 }
 
 // CreateFunctionResponse represents the response for creating a Lambda function.
@@ -58,19 +57,14 @@ func (wrapper FunctionWrapper) CreateFunction(c *fiber.Ctx) error {
 		return err
 	}
 
-	zipContent, err := ioutil.ReadFile(req.ZipPackage)
-	if err != nil {
-		c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to load Lambda function code package"})
-		return err
-	}
-
-	zipPackage := bytes.NewBuffer(zipContent)
-
 	iamRoleArn := aws.String(req.IAMRoleARN)
-
+	
 	var state State
-	_, err = wrapper.LambdaClient.CreateFunction(context.TODO(), &lambda.CreateFunctionInput{
-		Code:         &types.FunctionCode{ZipFile: zipPackage.Bytes()},
+	_, err := wrapper.LambdaClient.CreateFunction(context.TODO(), &lambda.CreateFunctionInput{
+		Code: &types.FunctionCode{
+			S3Bucket: aws.String(req.S3Bucket),
+			S3Key:    aws.String(req.S3ObjectKey),
+		},
 		FunctionName: aws.String(req.FunctionName),
 		Role:         iamRoleArn,
 		Handler:      aws.String(req.HandlerName),
